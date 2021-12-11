@@ -1,44 +1,77 @@
 'use strict'
 
+//set a random guess each time, this needs to be outside the call because we dont want the secret number to change everytime the user clicks the button
+const secretGuess = Math.trunc(Math.random() * 20) + 1
+// console.log(secretGuess);
+//set this to the mystery box on the page:
+document.querySelector('.gameResult').textContent = secretGuess
+
+
+
+///make a variable that we can link to the score and decrement if the user gets the wrong answer: We want ot set this outsie of the DOM.
+
+let gameScore = 20
+
 
 
 document.querySelector('.guessNumber').addEventListener('click', () => {
 	const userGuess = Number(document.querySelector('.guess').value )
 	console.log(userGuess, typeof userGuess)
 
-const guessRange = {
-	from: 1, 
-	to: 20
-}
+
+//function for too high or to low : then convert into a ternary operator:
 
 
-//set a random guess each time
-	const secretGuess = Math.floor(Math.random() * 21)
-	console.log(secretGuess);
+
+
 ///first need to check if there is a value
 if(!userGuess){
 	document.querySelector('.correctNumber').textContent = '🥺 No number!'
-}else if(userGuess  && userGuess === secretGuess){
-	document.querySelector('.correctNumber').textContent = '😆  Congratulations!'
-}else if(userGuess != secretGuess){
-	document.querySelector('.correctNumber').textContent = '🤭 keep trying!'
-	document.querySelector('.score').textContent = 'we will reflect this change'
-}
 
+//when player wins	
+}else if(userGuess === secretGuess){
+	document.querySelector('.correctNumber').textContent = '😆  Congratulations!'
+	document.querySelector('body').style.backgroundColor = 'pink'
+	document.querySelector('.gameResult').style.width = '30rem'
+	//link highScore to score:
+	document.querySelector('.highScore').textContent = gameScore
+//when guess is too high	
+}else if(userGuess > secretGuess ){
+	if(gameScore > 1){
+		document.querySelector('.correctNumber').textContent = '🤭 Too High!'
+		gameScore --
+		document.querySelector('.score').textContent = gameScore 	
+	}else {
+		document.querySelector('.correctNumber').textContent = '🥺 You Lost!'
+		document.querySelector('.score').textContent = 0
+	}
+
+//when guess is to low	
+}else if(userGuess < secretGuess ){
+	
+	if(gameScore > 1){
+		document.querySelector('.correctNumber').textContent = '🤭 Too Low!'
+		gameScore --
+		document.querySelector('.score').textContent = gameScore 	
+	}else {
+		document.querySelector('.correctNumber').textContent = '🥺 You Lost!'
+		document.querySelector('.score').textContent = 0
+	}
+}
 
 })
 
 
 
 
-//need to set a secret number on each click - use Math random and then we can check with a condition statement if it matches: number between 0-20 - math floor round down so hence we need to choose 21. Math random itself would not give you the last number in your range so always pick an extra number if you want it to be included.
+
 
 
 //problem need to reduce highscore if guess is incorrect by one each time & then if reaches 0 change message to stay game over
 
 //problem is stop the number going below zero - knock this one first - possible solution either change it to onclick and make a posiitive and negative button and change its value that way or set a range on the input value.
 
-//problem score also need to log highScore on every turn
+//problem score also need to log highScore on every game finish
 
 //problem need to reset the values on the end, so when it wins = reset,when it gets to the cut off point it resets.
 
