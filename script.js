@@ -1,17 +1,19 @@
 'use strict'
 
 //set a random guess each time, this needs to be outside the call because we dont want the secret number to change everytime the user clicks the button
-const secretGuess = Math.trunc(Math.random() * 20) + 1
+let secretGuess = Math.trunc(Math.random() * 20) + 1
 // console.log(secretGuess);
 //set this to the mystery box on the page:
-document.querySelector('.gameResult').textContent = secretGuess
+
 
 
 
 ///make a variable that we can link to the score and decrement if the user gets the wrong answer: We want ot set this outsie of the DOM.
 
 let gameScore = 20
+let highScore = 0
 
+// document.querySelector('.guess').setAttribute('disabled','disabled')
 
 
 document.querySelector('.guessNumber').addEventListener('click', () => {
@@ -31,11 +33,18 @@ if(!userGuess){
 //when player wins	
 }else if(userGuess === secretGuess){
 	document.querySelector('.correctNumber').textContent = '😆  Congratulations!'
+	document.querySelector('.gameResult').textContent = secretGuess
 	document.querySelector('body').style.backgroundColor = 'pink'
 	document.querySelector('.gameResult').style.width = '30rem'
-	//link highScore to score:
-	document.querySelector('.highScore').textContent = gameScore
-//when guess is too high	
+	
+	
+	if(gameScore > highScore){
+		highScore = gameScore
+		document.querySelector('.highScore').textContent = highScore
+	}
+	
+	
+
 }else if(userGuess > secretGuess ){
 	if(gameScore > 1){
 		document.querySelector('.correctNumber').textContent = '🤭 Too High!'
@@ -62,9 +71,24 @@ if(!userGuess){
 })
 
 
+//outside of the logic do a reset with an annoymous function:
+document.querySelector('.playAgain').addEventListener('click',()=>{
+	gameScore = 20 //in our code but then we need to display it
+	secretGuess = Math.trunc(Math.random() * 20) + 1 //reset the functions in our code and the global variable and then display them to the DOM:
 
 
 
+	document.querySelector('.correctNumber').textContent = 'Guess Number'
+	document.querySelector('.score').textContent = gameScore 
+	document.querySelector('.gameResult').textContent = '?'
+	document.querySelector('.guess').value = 0
+
+	//restore background and width of box:
+	document.querySelector('body').style.backgroundColor = ' greenyellow'
+	document.querySelector('.gameResult').style.width = '15rem'
+
+
+})
 
 
 //problem need to reduce highscore if guess is incorrect by one each time & then if reaches 0 change message to stay game over
