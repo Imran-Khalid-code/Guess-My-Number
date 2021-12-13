@@ -15,6 +15,12 @@ let highScore = 0
 
 // document.querySelector('.guess').setAttribute('disabled','disabled')
 
+let message =()=> {
+	document.querySelector('.correctNumber').textContent = 'Well done 🙌 '
+}
+
+
+
 
 document.querySelector('.guessNumber').addEventListener('click', () => {
 	const userGuess = Number(document.querySelector('.guess').value )
@@ -24,7 +30,9 @@ document.querySelector('.guessNumber').addEventListener('click', () => {
 //function to distill the amount of messages - refactoring
 
 const displayMessage = (correctNumber) => {
+	
 	document.querySelector('.correctNumber').textContent = correctNumber
+	
 }
 
 
@@ -39,6 +47,7 @@ if(!userGuess){
 	document.querySelector('.correctNumber').textContent = '😆  Congratulations!'
 	displayMessage('😆  Congratulations!')
 	document.querySelector('.gameResult').textContent = secretGuess
+	setTimeout(message, 5000)
 	document.querySelector('body').style.backgroundColor = 'pink'
 	document.querySelector('.gameResult').style.width = '30rem'
 
