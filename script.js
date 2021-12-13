@@ -17,7 +17,12 @@ let highScore = 0
 
 let message =()=> {
 	document.querySelector('.correctNumber').textContent = 'Well done 🙌 '
+	// clearTimeout(message)
+	// document.querySelector('.correctNumber').textContent = 'Play Again 😉 '
+
 }
+
+
 
 
 
@@ -47,7 +52,7 @@ if(!userGuess){
 	document.querySelector('.correctNumber').textContent = '😆  Congratulations!'
 	displayMessage('😆  Congratulations!')
 	document.querySelector('.gameResult').textContent = secretGuess
-	setTimeout(message, 5000)
+	setTimeout(message, 3000)
 	document.querySelector('body').style.backgroundColor = 'pink'
 	document.querySelector('.gameResult').style.width = '30rem'
 
@@ -122,3 +127,4 @@ document.querySelector('.playAgain').addEventListener('click',()=>{
 })
 
 
+//2 things to improve in this game : stop below zero + using timeout correctly.
